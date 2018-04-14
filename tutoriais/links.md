@@ -28,6 +28,12 @@ https://www.pandaqi.com/Games/9-three-js-complete-glsl-tutorial
 
 https://adrianomaciel.ninja/tutoriais/1o-tutorial-pratico-com-three-js
 
+https://www.august.com.au/blog/animating-scenes-with-webgl-three-js/
+
+**Video aulas**
+
+https://www.youtube.com/watch?v=vqmmXe21TbU
+
 **Documentação do tree.js**
 
 https://threejs.org/docs/
