@@ -1,5 +1,5 @@
-# ATIVIDADE PRATICA - Computacao-Grafica
-Atividade de Computação Gráfica desenvolvida por alunos da Ufscar Sorocaba
+# TRABALHO PRATICO - Computação Gráfica
+Trabalho prático de Computação Gráfica desenvolvida por alunos da UFSCar - Sorocaba
 
 Alunos:  
 * [Lucas Penteado Sacchi](http://github.com/lucaspsacchi)
@@ -7,5 +7,5 @@ Alunos:
 * [Victor Watanabe](https://github.com/victorhwmn)
 
 
-Professor: Mario
+Professor: Mario Lizier
 
