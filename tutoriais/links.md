@@ -2,11 +2,11 @@
 
 ## JAVASCRIPT
 
-**W3Schools (básica, mas muito bom)**
+**W3Schools**
 
 https://www.w3schools.com/js/default.asp
 
-**Tutorialspontoin - Muito bom!!! :)**
+**Tutorialspoint**
 
 https://www.tutorialspoint.com/javascript/index.htm
 
@@ -37,3 +37,9 @@ https://www.youtube.com/watch?v=vqmmXe21TbU
 **Documentação do tree.js**
 
 https://threejs.org/docs/
+
+**Exemplos para carregar recursos .obj**
+
+https://threejs.org/docs/#examples/loaders/OBJLoader
+
+https://github.com/mrdoob/three.js/blob/master/examples/webgl_loader_obj.html
