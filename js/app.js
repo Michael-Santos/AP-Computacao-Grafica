@@ -57,9 +57,6 @@ objloader.load(
                 child.material = material1;
             }
         });
-       	object.position.x = 0;
-       	object.position.y = -200;
-       	object.position.z = 0;
 		scene.add(object);	
 	},
 
@@ -78,10 +75,7 @@ objloader.load(
 objloader.load(
 	// Resource URL
 	'obj/knuckles/Knuckles.obj',
-
 	
-
-
 	// Called when resource is loaded
 	function(object){
 		object.traverse( function (child) {
@@ -89,9 +83,6 @@ objloader.load(
                 child.material = material2;
             }
         });
-       	object.position.x = 0;
-       	object.position.y = -200;
-       	object.position.z = 0;
 		scene.add(object);	
 	},
 
