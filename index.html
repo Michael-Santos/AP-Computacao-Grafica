@@ -19,9 +19,18 @@
 	</style>
 </head>
 <body>
-	<script type="x-shader/x-vertex" id="vertexShaders">
+	<script type="x-shader/x-vertex" id="vertexShaders1">
 		void main(){
 			vec4 modelViewPosition = modelViewMatrix * vec4(position, 1.0);
+			gl_Position = projectionMatrix * modelViewPosition; 
+		}
+	</script>
+
+	<script type="x-shader/x-vertex" id="vertexShaders2">
+		uniform mat4 trans;
+
+		void main(){
+			vec4 modelViewPosition = viewMatrix * trans * vec4(position, 1.0);
 			gl_Position = projectionMatrix * modelViewPosition; 
 		}
 	</script>

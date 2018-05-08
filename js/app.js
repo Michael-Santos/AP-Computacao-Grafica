@@ -20,23 +20,73 @@ window.addEventListener('resize', function ()
 // Add orbit controls (Cool)
 var controls = new THREE.OrbitControls( camera, renderer.domElement );
 
+
 //var material = new THREE.MeshBasicMaterial( {color: 0xffff00, wireframe:false} );
-var material = new THREE.ShaderMaterial({
-	vertexShader: document.getElementById("vertexShaders").textContent,
+var material1 = new THREE.ShaderMaterial({
+	uniforms: {
+		trans : {type: "mat4", value: new THREE.Matrix4().set(25, 0, 0, 700,
+															  0, 25, 0, 0,
+															  5, 0, 25, 0,
+															  0, 0, 0, 1
+																)}
+	},
+
+	vertexShader: document.getElementById("vertexShaders2").textContent,
+	fragmentShader: document.getElementById("fragmentShaders").textContent
+});
+
+
+//var material = new THREE.MeshBasicMaterial( {color: 0xffff00, wireframe:false} );
+var material2 = new THREE.ShaderMaterial({
+	vertexShader: document.getElementById("vertexShaders1").textContent,
 	fragmentShader: document.getElementById("fragmentShaders").textContent
 });
 
 // Load a model and add it to the scene
 var objloader = new THREE.OBJLoader();
+
+// Load house.obj
 objloader.load(
 	// Resource URL
-	'obj/knuckles/Knuckles.obj',
+	'obj/house/house.obj',
 
 	// Called when resource is loaded
 	function(object){
 		object.traverse( function (child) {
             if (child instanceof THREE.Mesh) {
-                child.material = material;
+                child.material = material1;
+            }
+        });
+       	object.position.x = 0;
+       	object.position.y = -200;
+       	object.position.z = 0;
+		scene.add(object);	
+	},
+
+	// Called when loading is in progresses
+	function (xhr) {
+		console.log((xhr.loaded/xhr.total*100) + '% loaded');
+	},
+
+	// Called when loading has errors
+	function (error) {
+		console.log('An error happened');
+	}
+);
+
+// Load Knuckles.obj
+objloader.load(
+	// Resource URL
+	'obj/knuckles/Knuckles.obj',
+
+	
+
+
+	// Called when resource is loaded
+	function(object){
+		object.traverse( function (child) {
+            if (child instanceof THREE.Mesh) {
+                child.material = material2;
             }
         });
        	object.position.x = 0;
