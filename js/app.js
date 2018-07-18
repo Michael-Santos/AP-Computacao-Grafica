@@ -4,7 +4,7 @@ var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHei
 
 // Adding renderer WebGL
 var renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setSize(window.innerWidth, window.innerHeight*0.95);
 document.body.appendChild(renderer.domElement);
 
 // Allow update viewport size on resize
@@ -92,6 +92,9 @@ objloader.load(
 				child.material = material2;
 			}
 		});
+		object.scale.x = 0.5;
+		object.scale.y = 0.5;
+		object.scale.z = 0.5;
 		scene.add(object);
 		knuckles = object;
 	},
@@ -157,6 +160,33 @@ curve2 = new THREE.CubicBezierCurve3(
 curve = curve1;
 curve_cont = 0;
 
+//Botão para mudar a camera
+flagCamera = 1;
+function changeCamera() {
+	
+	if (flagCamera == 1) {
+		camera.position.set(300,0,0);
+		camera.up = new THREE.Vector3(0,0,1);
+		camera.rotation.y = 90 * Math.PI / 180;
+		
+		controls.enabled = false;
+		
+		flagCamera = 0;
+	}
+	else {
+		camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 6000);
+		camera.position.x = 0;
+		camera.position.y = 0;
+		camera.position.z = 1000;
+		camera.rotation.y = 270 * Math.PI / 180;
+		
+		controls = new THREE.OrbitControls(camera, renderer.domElement);
+		controls.enabled = true;
+		
+		flagCamera = 1;
+	}
+	controls.update();
+}
 
 // Game logic
 var update = function () {
@@ -185,6 +215,13 @@ var render = function () {
 		curve_cont = 0;
 	}
 	
+	if (flagCamera == 0) {
+		camera.lookAt(curve.getPointAt(curve.getUtoTmapping((curve_cont+0.01) / 100)));
+		camera.position.x = 750;
+		camera.position.y = 2000;
+		camera.position.z = 0;
+
+	}
 	renderer.render(scene, camera);
 };
 
