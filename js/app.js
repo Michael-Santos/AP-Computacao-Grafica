@@ -1,3 +1,5 @@
+var knuckles;
+
 // Adding scene and camera
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 6000);
@@ -7,6 +9,13 @@ var renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight*0.95);
 document.body.appendChild(renderer.domElement);
 
+var ambientLight = new THREE.AmbientLight( 0xcccccc, 0.4 );
+scene.add( ambientLight );
+
+var pointLight = new THREE.PointLight( 0xffffff, 0.8 );
+camera.add( pointLight );
+scene.add( camera );
+
 // Allow update viewport size on resize
 window.addEventListener('resize', function () {
 	var width = window.innerWidth;
@@ -15,6 +24,7 @@ window.addEventListener('resize', function () {
 	camera.aspect = width / height;
 	camera.updateProjectionMatrix();
 });
+
 
 // Add orbit controls (Cool)
 var controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -51,11 +61,17 @@ var material3 = new THREE.ShaderMaterial({
 	fragmentShader: document.getElementById("fragmentShaders").textContent
 });
 
-// Load a model and add it to the scene
-var objloader = new THREE.OBJLoader();
+
+var onProgress = function (xhr) {
+		console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+	}
+
+var error = function (error) {
+		console.log('An error happened');
+	}
 
 // Load house.obj
-objloader.load(
+new THREE.OBJLoader().load(
 	// Resource URL
 	'obj/house/house.obj',
 
@@ -67,21 +83,39 @@ objloader.load(
 			}
 		});
 		scene.add(object);
-	},
-
-	// Called when loading is in progresses
-	function (xhr) {
-		console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-	},
-
-	// Called when loading has errors
-	function (error) {
-		console.log('An error happened');
-	}
+	}, onProgress, error
 );
 
+// Load Knucles.obj e Knucles.obj.mtl
+
+new THREE.MTLLoader().load(
+	'obj/knuckles/Knuckles.obj.mtl', 
+	function (materials){
+		materials.preload();
+
+		new THREE.OBJLoader().load(
+			// Resource URL
+			'obj/knuckles/Knuckles.obj',
+
+			// Called when resource is loaded
+			function (object) {
+				object.scale.x = 0.5;
+				object.scale.y = 0.5;
+				object.scale.z = 0.5;
+				scene.add(object);
+				knuckles = object;
+			}, onProgress, error
+		);
+
+	}, onProgress, error
+);
+
+
+
+
+
 // Load Knuckles.obj
-objloader.load(
+/*objloader.load(
 	// Resource URL
 	'obj/knuckles/Knuckles.obj',
 
@@ -108,10 +142,10 @@ objloader.load(
 	function (error) {
 		console.log('An error happened');
 	}
-);
+);*/
 
 // Load tree.obj
-objloader.load(
+new THREE.OBJLoader().load(
 	// Resource URL
 	'obj/tree/tree.obj',
 
@@ -127,17 +161,7 @@ objloader.load(
 		object.position.z = -200;
 		object.scale.set(4, 4, 4);
 		scene.add(object);
-	},
-
-	// Called when loading is in progresses
-	function (xhr) {
-		console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-	},
-
-	// Called when loading has errors
-	function (error) {
-		console.log('An error happened');
-	}
+	}, onProgress, error
 );
 
 // Change the position of the camera
@@ -184,6 +208,7 @@ function changeCamera() {
 		controls.enabled = true;
 		
 		flagCamera = 1;
+
 	}
 	controls.update();
 }
