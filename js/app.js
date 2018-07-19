@@ -105,9 +105,6 @@ THREE.Loader.Handlers.add(/\.dds$/i, new THREE.DDSLoader());
 var casa;
 var knuckles;
 
-// Phong material
-var phongMaterial = new THREE.MeshPhongMaterial({color: 0x88aacc, specular: 0x333333});
-
 // Load house.obj
 objLoader = new THREE.OBJLoader();
 objLoader.setPath('obj/house/');
@@ -197,7 +194,6 @@ mtlLoader.load("tree.mtl", function(materials) {
     });
 }); 
 
-
 // Load tree.obj
 new THREE.OBJLoader().load(
 	// Resource URL
@@ -217,6 +213,51 @@ new THREE.OBJLoader().load(
 		scene.add(object);
 	}, onProgress, onError
 );
+
+var star;
+
+function criarCeu () {
+	var startx = 0;
+	var starty = 0;
+	var startz = 0;
+	var distance = 10;
+
+	// Phong material
+	var phongMaterial = new THREE.MeshPhongMaterial({color: 0x88aacc, specular: 0x333333});
+	// Load tree.obj
+	new THREE.OBJLoader().load(
+		// Resource URL
+		'obj/Rock1/Rock1.obj',
+
+		// Called when resource is loaded
+		function (object) {
+			object.traverse(function (child) {
+				if (child instanceof THREE.Mesh) {
+					// Assigned a personal shader
+					child.material = phongMaterial;
+				}
+			});
+			object.scale.set(10.0, 10.0, 10.0);
+			object.position.set(0, 50, 0);
+			star = object
+			scene.add(object);
+			criarEstrela(startx, startz, distance);
+		}, onProgress, onError
+	);
+}
+
+function criarEstrela (startx, startz, distance) {
+	for (i = startx; i < startx+distance*10; i = i+distance ){
+		for (z = startz; z < startz+distance*10; z = z+distance){
+			var newStar = star.clone();
+			newStar.position.x = x;
+			newStar.position.z = z;
+			scene.add(newStar);
+		}
+	}
+}
+
+criarCeu();
 
 // Change the position of the camera
 camera.position.z = 1000;
