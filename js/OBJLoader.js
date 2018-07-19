@@ -2,6 +2,12 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
+THREE.OBJLoader = function () {
+
+  THREE.EventDispatcher.call( this );
+
+};
+
 THREE.OBJLoader = ( function () {
 
 	// o object_name | g group_name

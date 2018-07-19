@@ -12,6 +12,6 @@ newmtl tree
 	Kd 0.588235 0.588235 0.588235
 	Ks 0.000000 0.000000 0.000000
 	Ke 0.000000 0.000000 0.000000
-	map_Ka D:\raidhack\tree.jpg
-	map_Kd D:\raidhack\tree.jpg
-	map_d D:\raidhack\tree_alpha.jpg
+	map_Ka tree.jpg
+	map_Kd tree.jpg
+	map_d tree_alpha.jpg

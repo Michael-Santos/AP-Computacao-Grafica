@@ -48,7 +48,7 @@ var material1 = new THREE.ShaderMaterial({
 			value: new THREE.Matrix4().set(
 				25, 0, 0, 700,
 				0, 25, 0, 0,
-				0, 0, 25, 0,
+				5, 0, 25, 0,
 				0, 0, 0, 1
 			)
 		}
@@ -58,26 +58,14 @@ var material1 = new THREE.ShaderMaterial({
 	fragmentShader: document.getElementById("fragmentShaders").textContent
 });
 
+
+/********** Defining objects and textures **********/
+
 //var material = new THREE.MeshBasicMaterial( {color: 0xffff00, wireframe:false} );
 var material2 = new THREE.ShaderMaterial({
-	uniforms: {
-		trans: {
-			type: "mat4",
-			value: new THREE.Matrix4().set(
-				10, 0, 0, 700,
-				0, 10, 0, 0,
-				0, 0, 10, 0,
-				0, 0, 0, 1
-			)
-		}
-	},
-
 	vertexShader: document.getElementById("vertexShaders1").textContent,
 	fragmentShader: document.getElementById("fragmentShaders").textContent
 });
-
-
-/********** Defining objects and textures **********/
 
 //var material = new THREE.MeshBasicMaterial( {color: 0xffff00, wireframe:false} );
 var material3 = new THREE.ShaderMaterial({
@@ -105,98 +93,93 @@ THREE.Loader.Handlers.add(/\.dds$/i, new THREE.DDSLoader());
 var casa;
 var knuckles;
 
-// Phong material
-var phongMaterial = new THREE.MeshPhongMaterial({color: 0x88aacc, specular: 0x333333});
-
 // Load house.obj
-objLoader = new THREE.OBJLoader();
-objLoader.setPath('obj/house/');
-objLoader.load(
+new THREE.OBJLoader().load(
 	// Resource URL
-	'house.obj',
+	'obj/house/house.obj',
 
 	// Called when resource is loaded
 	function (object) {
 		object.traverse(function (child) {
 			if (child instanceof THREE.Mesh) {
-				// Assigned a personal shader
 				child.material = material1;
 			}
 		});
-		object.scale.set(10.0, 10.0, 10.0);
-		object.position.set(0.5, 10.5, 0.5);
-		casa = object
-		scene.add(object);
+		casa = scene.add(object);
 	}, onProgress, onError
 );
 
-mtlLoader = new THREE.MTLLoader();
-mtlLoader.setPath('obj/knuckles/');
-mtlLoader.load("Knuckles.obj.mtl", function(materials) {
-    materials.preload();
-    
-    //Carregamento do objeto para a cena
-    objLoader = new THREE.OBJLoader();
-    objLoader.setMaterials(materials);
-    objLoader.setPath('obj/knuckles/');
-    objLoader.load("Knuckles.obj", function(object){
+// Load Knucles.obj e Knucles.obj.mtl
+new THREE.MTLLoader().load(
+	'obj/knuckles/Knuckles.obj.mtl', 
+	function (materials){
+		materials.preload();
 
-	    console.log("Objeto da bateria foi carregado");
-	        //Configuração de posição, escala e rotaçaõ do objeto
-	        object.position.set(0, 0, 0);
-	        object.scale.set(0.5, 0.5, 0.5);
-	        object.rotation.set(0, 0.7, 2); 
-	        knuckles = object;
-	        scene.add(object);
-    });
-}); 
+		new THREE.OBJLoader().load(
+			// Resource URL
+			'obj/knuckles/Knuckles.obj',
 
-mtlLoader = new THREE.MTLLoader();
-mtlLoader.setPath('obj/Battery/');
-mtlLoader.load("battery.mtl", function(materials) {
-    materials.preload();
-    console.log("Material da bateria foi carregado");
-    
-    //Carregamento do objeto para a cena
-    objLoader = new THREE.OBJLoader();
-    objLoader.setMaterials(materials);
-    objLoader.setPath('obj/Battery/');
-    objLoader.load("battery.obj", function(object){
+			// Called when resource is loaded
+			function (object) {
+				object.scale.x = 0.5;
+				object.scale.y = 0.5;
+				object.scale.z = 0.5;
+				scene.add(object);
+				knuckles = object;
+			}, onProgress, onError
+		);
 
-    console.log("Objeto da bateria foi carregado");
-        //Configuração de posição, escala e rotaçaõ do objeto
-        object.position.set(170, 130, -300);
-        object.scale.set(100.01, 100.01, 100.01);
-        object.rotation.set(0, 0.7, 2);
-        
-        battery = object;
+	}, onProgress, onError
+);
 
-        scene.add(object);
-    });
-}); 
+// Load  battery.obj e battery.mtl
+new THREE.MTLLoader().load(
+	'obj/Battery/battery.mtl', 
 
-mtlLoader = new THREE.MTLLoader();
-mtlLoader.setPath('obj/tree/');
-mtlLoader.load("tree.mtl", function(materials) {
-    materials.preload();
-    
-    //Carregamento do objeto para a cena
-    objLoader = new THREE.OBJLoader();
-    objLoader.setMaterials(materials);
-    objLoader.setPath('obj/tree/');
-    objLoader.load("tree.obj", function(object){
-        //Configuração de posição, escala e rotaçaõ do objeto
-       	object.position.x = 100;
-		object.position.y = 0;
-		object.position.z = -400;
-		object.scale.set(4, 4, 4);
-        
-        tree = object;
+	function (materials){
+		materials.preload();
 
-        scene.add(object);
-    });
-}); 
+		new THREE.OBJLoader().load(
+			// Resource URL
 
+			'obj/Battery/battery.obj',
+
+			// Called when resource is loaded
+			function (object) {
+				object.scale.x = 200.5;
+				object.scale.y = 200.5;
+				object.scale.z = 200.5;
+				scene.add(object);
+				baterry = object;
+			}, onProgress, onError
+		);
+
+	}, onProgress, onError
+);
+
+ mtlLoader = new THREE.MTLLoader();
+                mtlLoader.setPath('obj/Battery/');
+                mtlLoader.load("battery.mtl", function(materials) {
+                    materials.preload();
+                    console.log("Material da bateria foi carregado");
+                    
+                    //Carregamento do objeto para a cena
+                    objLoader = new THREE.OBJLoader();
+                    objLoader.setMaterials(materials);
+                    objLoader.setPath('obj/Battery/');
+                    objLoader.load("battery.obj", function(object){
+
+                    console.log("Objeto da bateria foi carregado");
+                        //Configuração de posição, escala e rotaçaõ do objeto
+                        object.position.set(170, 130, -300);
+                        object.scale.set(100.01, 100.01, 100.01);
+                        object.rotation.set(0, 0.7, 2);
+                        
+                        Moon = object;
+
+                        cena.add(object);
+                    });
+                }); 
 
 // Load tree.obj
 new THREE.OBJLoader().load(
@@ -207,13 +190,13 @@ new THREE.OBJLoader().load(
 	function (object) {
 		object.traverse(function (child) {
 			if (child instanceof THREE.Mesh) {
-				// Assigned a personal shader
-				child.material = material1;
+				child.material = material3;
 			}
 		});
-		object.scale.set(1.0, 1.0, 1.0);
-		object.position.set(0.5, 10.5, 0.5);
-		casa = object
+		object.position.x = 100;
+		object.position.y = 0;
+		object.position.z = -200;
+		object.scale.set(4, 4, 4);
 		scene.add(object);
 	}, onProgress, onError
 );
