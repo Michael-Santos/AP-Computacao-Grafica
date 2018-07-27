@@ -2,7 +2,7 @@
 
 // Adding scene and camera
 var scene = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 6000);
+var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 500000);
 
 
 /**************** Defining Reder WebGL ****************/
@@ -11,15 +11,16 @@ var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHei
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight*0.95);
 document.body.appendChild(renderer.domElement);
-renderer.setClearColor( 0x999999 ); 
+renderer.setClearColor( 0x7ec0ee ); 
 
 /******* Defining Lights and adding them to scene ******/
 
 var pointLight = new THREE.PointLight( 0xffffff, 0.8 );
+pointLight.position.set(0,100000,0);
 camera.add( pointLight );
 scene.add( camera );
 
-var ambientLight = new THREE.AmbientLight( 0xcccccc, 0.4 );
+var ambientLight = new THREE.AmbientLight( 0xdddddd, 0.9 );
 scene.add( ambientLight );
 
 // Allow update viewport size on resize
@@ -105,6 +106,49 @@ THREE.Loader.Handlers.add(/\.dds$/i, new THREE.DDSLoader());
 var casa;
 var knuckles;
 
+var moon;
+var island
+
+
+// Load island.obj e .mtl
+mtlLoader = new THREE.MTLLoader();
+mtlLoader.setPath('obj/PeachsCastle/');
+mtlLoader.load("Castle.mtl", function(materials) {
+    materials.preload();
+    
+    //Carregamento do objeto para a cena
+    objLoader = new THREE.OBJLoader();
+    objLoader.setMaterials(materials);
+    objLoader.setPath('obj/PeachsCastle/');
+    objLoader.load("Castle.obj", function(object){
+	        //Configuração de posição, escala e rotaçaõ do objeto
+	        object.position.set(0, -4500, 0);
+	        object.scale.set(10000, 10000, 10000);
+	        moon = object;
+	        scene.add(object);
+    }, onProgress, onError);
+}, onProgress, onError); 
+
+// Load island.obj e .mtl
+mtlLoader = new THREE.MTLLoader();
+mtlLoader.setPath('obj/Moon/');
+mtlLoader.load("moon.mtl", function(materials) {
+    materials.preload();
+    
+    //Carregamento do objeto para a cena
+    objLoader = new THREE.OBJLoader();
+    objLoader.setMaterials(materials);
+    objLoader.setPath('obj/Moon/');
+    objLoader.load("moon.obj", function(object){
+	        //Configuração de posição, escala e rotaçaõ do objeto
+	        object.position.set(0, 40000, -70000);
+	        object.scale.set(1, 1, 1);
+	        moon = object;
+	        scene.add(object);
+    }, onProgress, onError);
+}, onProgress, onError); 
+
+
 // Load house.obj
 objLoader = new THREE.OBJLoader();
 objLoader.setPath('obj/house/');
@@ -137,8 +181,6 @@ mtlLoader.load("Knuckles.obj.mtl", function(materials) {
     objLoader.setMaterials(materials);
     objLoader.setPath('obj/knuckles/');
     objLoader.load("Knuckles.obj", function(object){
-
-	    console.log("Objeto da bateria foi carregado");
 	        //Configuração de posição, escala e rotaçaõ do objeto
 	        object.position.set(0, 0, 0);
 	        object.scale.set(0.5, 0.5, 0.5);
@@ -152,7 +194,6 @@ mtlLoader = new THREE.MTLLoader();
 mtlLoader.setPath('obj/Battery/');
 mtlLoader.load("battery.mtl", function(materials) {
     materials.preload();
-    console.log("Material da bateria foi carregado");
     
     //Carregamento do objeto para a cena
     objLoader = new THREE.OBJLoader();
@@ -160,7 +201,6 @@ mtlLoader.load("battery.mtl", function(materials) {
     objLoader.setPath('obj/Battery/');
     objLoader.load("battery.obj", function(object){
 
-    console.log("Objeto da bateria foi carregado");
         //Configuração de posição, escala e rotaçaõ do objeto
         object.position.set(170, 130, -300);
         object.scale.set(100.01, 100.01, 100.01);
@@ -293,7 +333,7 @@ function changeCamera() {
 		flagCamera = 0;
 	}
 	else {
-		camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 6000);
+		camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 500000);
 		camera.position.x = 0;
 		camera.position.y = 0;
 		camera.position.z = 1000;
