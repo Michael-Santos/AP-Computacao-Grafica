@@ -16,7 +16,7 @@ renderer.setClearColor( 0x7ec0ee );
 /******* Defining Lights and adding them to scene ******/
 
 var pointLight = new THREE.PointLight( 0xffffff, 0.8 );
-pointLight.position.set(0,100000,0);
+pointLight.position.set(0,1000,0);
 camera.add( pointLight );
 scene.add( camera );
 
@@ -107,10 +107,11 @@ var casa;
 var knuckles;
 
 var moon;
-var island
+var castle;
+var chef;
 
 
-// Load island.obj e .mtl
+// Load Peach Castle
 mtlLoader = new THREE.MTLLoader();
 mtlLoader.setPath('obj/PeachsCastle/');
 mtlLoader.load("Castle.mtl", function(materials) {
@@ -124,12 +125,12 @@ mtlLoader.load("Castle.mtl", function(materials) {
 	        //Configuração de posição, escala e rotaçaõ do objeto
 	        object.position.set(0, -4500, 0);
 	        object.scale.set(10000, 10000, 10000);
-	        moon = object;
+	        castle = object;
 	        scene.add(object);
     }, onProgress, onError);
 }, onProgress, onError); 
 
-// Load island.obj e .mtl
+// Load Moon
 mtlLoader = new THREE.MTLLoader();
 mtlLoader.setPath('obj/Moon/');
 mtlLoader.load("moon.mtl", function(materials) {
@@ -148,6 +149,25 @@ mtlLoader.load("moon.mtl", function(materials) {
     }, onProgress, onError);
 }, onProgress, onError); 
 
+// Load Chef
+mtlLoader = new THREE.MTLLoader();
+mtlLoader.setPath('obj/Chef/');
+mtlLoader.load("Chef.mtl", function(materials) {
+    materials.preload();
+    
+    //Carregamento do objeto para a cena
+    objLoader = new THREE.OBJLoader();
+    objLoader.setMaterials(materials);
+    objLoader.setPath('obj/Chef/');
+    objLoader.load("Chef.obj", function(object){
+	        //Configuração de posição, escala e rotaçaõ do objeto
+	        object.position.set(-12200, -3500, 20500);
+	        object.scale.set(1000, 1000, 1000);
+	        object.rotation.set(0, 0.7, 0); 
+	        chef = object;
+	        scene.add(object);
+    }, onProgress, onError);
+}, onProgress, onError); 
 
 // Load house.obj
 objLoader = new THREE.OBJLoader();
