@@ -278,10 +278,32 @@ new THREE.OBJLoader().load(
 		});
 		object.scale.set(1.0, 1.0, 1.0);
 		object.position.set(0.5, 10.5, 0.5);
-		casa = object
+		casa = object;
 		scene.add(object);
 	}, onProgress, onError
 );
+
+//Load Sun
+mtlLoader = new THREE.MTLLoader();
+mtlLoader.setPath('obj/Sun/');
+mtlLoader.load("sun.mtl", function(materials) {
+    materials.preload();
+    
+    //Carregamento do objeto para a cena
+    objLoader = new THREE.OBJLoader();
+    objLoader.setMaterials(materials);
+    objLoader.setPath('obj/Sun/');
+    objLoader.load("sun.obj", function(object){
+	        //Configuração de posição, escala do objeto
+	        object.position.set(0, 40000, -100000);
+	        object.scale.set(1000, 1000, 1000);
+	        sun = object;
+	        scene.add(object);
+    });
+}); 
+
+
+
 
 var star;
 
