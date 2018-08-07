@@ -23,6 +23,10 @@ scene.add( camera );
 var ambientLight = new THREE.AmbientLight( 0xdddddd, 0.9 );
 scene.add( ambientLight );
 
+var light = new THREE.DirectionalLight( 0xffffff, 0.8 );
+scene.add( light );
+
+
 // Allow update viewport size on resize
 window.addEventListener('resize', function () {
 	var width = window.innerWidth;
@@ -37,6 +41,11 @@ window.addEventListener('resize', function () {
 
 // Add orbit controls (Cool)
 var controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.maxPolarAngle = Math.PI * 0.495;
+controls.target.set( 0, 10, 0 );
+controls.minDistance = 40.0;
+controls.maxDistance = 200.0;
+camera.lookAt( controls.target );
 
 
 /*************** Trasformation Matrix **************/
@@ -105,10 +114,10 @@ THREE.Loader.Handlers.add(/\.dds$/i, new THREE.DDSLoader());
 // Objects list
 var casa;
 var knuckles;
-
 var moon;
 var castle;
 var chef;
+var water;
 
 
 // Load Peach Castle
@@ -299,11 +308,39 @@ function criarCeu () {
 			});
 			object.scale.set(10.0, 10.0, 10.0);
 			object.position.set(0, 50, 0);
-			star = object
+			star = objects
 			scene.add(object);
 			criarEstrela(startx, startz, distance);
 		}, onProgress, onError
 	);
+
+
+	var waterGeometry = new THREE.PlaneBufferGeometry( 10000, 10000 );
+	water = new THREE.Water(
+		waterGeometry,
+		{
+			textureWidth: 512,
+			textureHeight: 512,
+			waterNormals: new THREE.TextureLoader().load( 'textures/waternormals.jpg', function ( texture ) {
+				texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+			}),
+			alpha: 1.0,
+			sunDirection: light.position.clone().normalize(),
+			sunColor: 0xffffff,
+			waterColor: 0x001e0f,
+			distortionScale:  3.7,
+			fog: scene.fog !== undefined
+		}
+	);
+
+	water.rotation.x = - Math.PI / 2;
+	water.scale.set(100, 100, 1);
+	water.position.y = -3400;
+	scene.add( water );
+
+
+
+
 }
 
 function criarEstrela (startx, startz, distance) {
@@ -402,6 +439,9 @@ var render = function () {
 		camera.position.z = 0;
 
 	}
+
+	water.material.uniforms.sunDirection.value.copy( light.position ).normalize();
+	water.material.uniforms.time.value += 1.0 / 60.0;
 	renderer.render(scene, camera);
 };
 
