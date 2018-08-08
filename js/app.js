@@ -302,7 +302,9 @@ mtlLoader.load("sun.mtl", function(materials) {
     });
 }); 
 
-
+//Variaveis relacionada a movimentação do Sol e da Lua
+var orbitRadius = 70000;
+var date;
 
 
 var star;
@@ -461,6 +463,17 @@ var render = function () {
 		camera.position.z = 0;
 
 	}
+
+	//Movimentação do Sol e da Lua
+	date = Date.now() * 0.001;
+	moon.position.set( 
+			Math.cos(date) * orbitRadius, 40000, Math.sin(date) * orbitRadius
+		);
+	moon.rotation.y =  -date + Math.PI/2;
+ 	sun.position.set(
+ 			-Math.cos(date) * orbitRadius,40000, -Math.sin(date) * orbitRadius
+ 		);
+
 
 	water.material.uniforms.sunDirection.value.copy( light.position ).normalize();
 	water.material.uniforms.time.value += 1.0 / 60.0;
