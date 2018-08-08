@@ -41,11 +41,11 @@ window.addEventListener('resize', function () {
 
 // Add orbit controls (Cool)
 var controls = new THREE.OrbitControls(camera, renderer.domElement);
-controls.maxPolarAngle = Math.PI * 0.495;
-controls.target.set( 0, 10, 0 );
-controls.minDistance = 40.0;
-controls.maxDistance = 200.0;
-camera.lookAt( controls.target );
+//controls.maxPolarAngle = Math.PI * 0.495;
+//controls.target.set( 0, 10, 0 );
+//controls.minDistance = 40.0;
+//controls.maxDistance = 200.0;
+//camera.lookAt( controls.target );
 
 
 /*************** Trasformation Matrix **************/
@@ -131,7 +131,7 @@ mtlLoader.load("Castle.mtl", function(materials) {
     objLoader.setMaterials(materials);
     objLoader.setPath('obj/PeachsCastle/');
     objLoader.load("Castle.obj", function(object){
-	        //Configuração de posição, escala e rotaçaõ do objeto
+	        //Configuração de posição, escala e rotação do objeto
 	        object.position.set(0, -4500, 0);
 	        object.scale.set(10000, 10000, 10000);
 	        castle = object;
@@ -150,7 +150,7 @@ mtlLoader.load("moon.mtl", function(materials) {
     objLoader.setMaterials(materials);
     objLoader.setPath('obj/Moon/');
     objLoader.load("moon.obj", function(object){
-	        //Configuração de posição, escala e rotaçaõ do objeto
+	        //Configuração de posição, escala e rotação do objeto
 	        object.position.set(0, 40000, -70000);
 	        object.scale.set(1, 1, 1);
 	        moon = object;
@@ -332,7 +332,7 @@ function criarCeu () {
 			});
 			object.scale.set(10.0, 10.0, 10.0);
 			object.position.set(0, 50, 0);
-			star = objects
+			star = object;
 			scene.add(object);
 			criarEstrela(startx, startz, distance);
 		}, onProgress, onError
@@ -385,10 +385,10 @@ camera.position.z = 1000;
 
 //Curva de Bezier
 curve1 = new THREE.CubicBezierCurve3(
-	new THREE.Vector3(0, 0, 0),//v0
-	new THREE.Vector3(-600, 0, -500),//v1
-	new THREE.Vector3(-100, 0, -1000),//v2
-	new THREE.Vector3(800, 0, -800)//v3
+	new THREE.Vector3(-3400, -3000, 13000),//v0
+	new THREE.Vector3(-5000, -3200, 15000),//v1
+	new THREE.Vector3(-10200, -3500, 18000),//v2
+	new THREE.Vector3(-11800, -3500, 20000)//v3
 );
 
 curve2 = new THREE.CubicBezierCurve3(
@@ -405,8 +405,8 @@ flagCamera = 1;
 function changeCamera() {
 	
 	if (flagCamera == 1) {
-		camera.position.set(300,0,0);
-		camera.up = new THREE.Vector3(0,0,1);
+		//camera.position.set(300,0,0);
+		camera.up = new THREE.Vector3(0,0,1000);
 		camera.rotation.y = 90 * Math.PI / 180;
 		
 		controls.enabled = false;
@@ -427,6 +427,21 @@ function changeCamera() {
 
 	}
 	controls.update();
+}
+
+op = 0;
+//Primeiro botão para interagir com a cena
+function opcao1() {
+	
+	
+	op++;
+}
+
+//Segundo botão para ir para a próxima cena
+function opcao2() {
+	
+	
+	op++;
 }
 
 // Game logic
@@ -458,9 +473,9 @@ var render = function () {
 	
 	if (flagCamera == 0) {
 		camera.lookAt(curve.getPointAt(curve.getUtoTmapping((curve_cont+0.01) / 100)));
-		camera.position.x = 750;
-		camera.position.y = 2000;
-		camera.position.z = 0;
+		camera.position.x = knuckles.position.x;
+		camera.position.y = knuckles.position.y + 250;
+		camera.position.z = knuckles.position.z - 300;
 
 	}
 
