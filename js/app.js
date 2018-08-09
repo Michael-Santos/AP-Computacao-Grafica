@@ -339,7 +339,7 @@ function criarCeu () {
 	);
 
 
-	var waterGeometry = new THREE.PlaneBufferGeometry( 10000, 10000 );
+	var waterGeometry = new THREE.PlaneBufferGeometry( 500000, 500000 );
 	water = new THREE.Water(
 		waterGeometry,
 		{
@@ -358,7 +358,7 @@ function criarCeu () {
 	);
 
 	water.rotation.x = - Math.PI / 2;
-	water.scale.set(100, 100, 1);
+	//water.scale.set(100, 100, 1);
 	water.position.y = -3400;
 	scene.add( water );
 
