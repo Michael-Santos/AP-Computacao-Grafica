@@ -433,13 +433,22 @@ op = 0;
 //Primeiro botão para interagir com a cena
 function opcao1() {
 	
-	
+	if (curve == curve1) {
+		curve = curve2;
+		
+	}
+	else {
+		curve = curve1;
+	}
+
+	curve_cont = 0;
 	op++;
 }
 
 //Segundo botão para ir para a próxima cena
 function opcao2() {
 	
+	curve_cont = 0;
 	
 	op++;
 }
@@ -458,18 +467,17 @@ var render = function () {
 	knuckles.position.set(curve.getPointAt(point).x, curve.getPointAt(point).y, curve.getPointAt(point).z);
 	//Altera a posição da camera do objeto
 	knuckles.lookAt(curve.getPointAt(curve.getUtoTmapping((curve_cont+0.01) / 100)));
+
 	
-	//Contadores e troca de curva
-	curve_cont += 0.5;
-	if (curve_cont > 100) {
-		if (curve == curve1) {
-			curve = curve2;
-		}
-		else {
-			curve = curve1;
-		}
-		curve_cont = 0;
+	//Contadores da curva de Bézier
+	if (curve_cont < 99.5) {
+		curve_cont += 0.5;
 	}
+	else {
+		curve_cont = 99.5;
+	}
+
+
 	
 	if (flagCamera == 0) {
 		camera.lookAt(curve.getPointAt(curve.getUtoTmapping((curve_cont+0.01) / 100)));
