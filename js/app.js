@@ -23,8 +23,48 @@ scene.add( camera );
 var ambientLight = new THREE.AmbientLight( 0xdddddd, 0.9 );
 scene.add( ambientLight );
 
-var light = new THREE.DirectionalLight( 0xffffff, 0.8 );
+var hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.6 );
+hemiLight.position.set( 0, 50000, 0 );
+scene.add( hemiLight );
+
+
+//scene.fog = new THREE.Fog( 0xffffff, 4000, 5000 );
+
+
+var light = new THREE.DirectionalLight( 0xffffff, 1 );
+
+light.position.multiplyScalar( 50 );
 scene.add( light );
+light.castShadow = true;
+light.shadowMapWidth = 2048;
+light.shadowMapHeight = 2048;
+var d = 50;
+light.shadowCameraLeft = -d;
+light.shadowCameraRight = d;
+light.shadowCameraTop = d;
+light.shadowCameraBottom = -d;
+light.shadowCameraFar = 3500;
+light.shadowBias = -0.0001;
+light.shadowDarkness = 0.35;
+
+
+// SKYDOME
+var vertexShader = document.getElementById( 'vertexShader' ).textContent;
+var fragmentShader = document.getElementById( 'fragmentShader' ).textContent;
+var uniforms = {
+	topColor: 	 { type: "c", value: new THREE.Color( 0x0077ff ) },
+	bottomColor: { type: "c", value: new THREE.Color( 0xffffff ) },
+	offset:		 { type: "f", value: 33 },
+	exponent:	 { type: "f", value: 0.6 }
+}
+uniforms.topColor.value.copy( hemiLight.color );
+//scene.fog.color.copy( uniforms.bottomColor.value );
+var skyGeo = new THREE.SphereGeometry( 260000, 32, 15 );
+var skyMat = new THREE.ShaderMaterial( { vertexShader: vertexShader, fragmentShader: fragmentShader, uniforms: uniforms, side: THREE.BackSide } );
+var sky = new THREE.Mesh( skyGeo, skyMat );
+scene.add( sky );
+
+
 
 
 // Allow update viewport size on resize
@@ -307,6 +347,9 @@ var orbitRadius = 250000;
 var date;
 
 
+
+
+
 var star;
 
 function criarCeu () {
@@ -361,9 +404,6 @@ function criarCeu () {
 	water.scale.set(100, 100, 1);
 	water.position.y = -3400;
 	scene.add( water );
-
-
-
 
 }
 
@@ -499,6 +539,30 @@ var render = function () {
  			sun_position_x,sun_position_y,0);
  	light.position.set(sun_position_x,sun_position_y,0);
 
+ 	if (sun_position_y > 0.2 *orbitRadius )   // day
+    {
+        sky.material.uniforms.topColor.value.setRGB(0.25,0.55,1);
+        sky.material.uniforms.bottomColor.value.setRGB(1,1,1);
+        var f = 1;
+        light.intensity = f;
+        light.shadowDarkness = f*0.7;
+    }
+    else if (sun_position_y < 0.2 * orbitRadius && sun_position_y > 0.0 *orbitRadius )
+    {
+        var f = sun_position_y/(0.2 * orbitRadius);
+        light.intensity = f;
+        light.shadowDarkness = f*0.7;
+        sky.material.uniforms.topColor.value.setRGB(0.25*f,0.55*f,1*f);
+        sky.material.uniforms.bottomColor.value.setRGB(1*f,   1*f,1*f);
+    }
+    else  // night
+    {
+        var f = 0;
+        light.intensity = f;
+        light.shadowDarkness = f*0.7;
+        sky.material.uniforms.topColor.value.setRGB(0,0,0);
+        sky.material.uniforms.bottomColor.value.setRGB(0,0,0);
+    }
 
 	water.material.uniforms.sunDirection.value.copy( light.position ).normalize();
 	water.material.uniforms.time.value += 1.0 / 60.0;
