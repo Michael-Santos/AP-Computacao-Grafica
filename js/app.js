@@ -9,6 +9,7 @@ var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHei
 
 // Adding renderer WebGL
 var renderer = new THREE.WebGLRenderer();
+//var renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight*0.95);
 document.body.appendChild(renderer.domElement);
 renderer.setClearColor( 0x7ec0ee ); 
@@ -422,7 +423,6 @@ criarCeu();
 
 // Change the position of the camera
 camera.position.z = 1000;
-
 //Curva de Bezier
 curve1 = new THREE.CubicBezierCurve3(
 	new THREE.Vector3(-3400, -3000, 13000),//v0
@@ -432,11 +432,47 @@ curve1 = new THREE.CubicBezierCurve3(
 );
 
 curve2 = new THREE.CubicBezierCurve3(
-	new THREE.Vector3(800, 0, -800),//v0
-	new THREE.Vector3(1700, 0, -500),//v1
-	new THREE.Vector3(1800, 0, 1000),//v2
-	new THREE.Vector3(0, 0, 0)//v3
+	new THREE.Vector3(-11800, -3500, 20000),//v0
+	new THREE.Vector3(-10000, -3500, 20000),//v1
+	new THREE.Vector3(-9000, -3500, 23000),//v2
+	new THREE.Vector3(-8000, -3500, 26000)//v3
 );
+
+curve3 = new THREE.CubicBezierCurve3(
+	new THREE.Vector3(45784, 822, 42473),//v0
+	new THREE.Vector3(52000, 822, 38000),//v1
+	new THREE.Vector3(58000, 822, 49000),//v2
+	new THREE.Vector3(48000, 822, 49613)//v3
+);
+
+curve4 = new THREE.CubicBezierCurve3(
+	new THREE.Vector3(48000, 822, 49613),//v0
+	new THREE.Vector3(52000, 822, 46000),//v1
+	new THREE.Vector3(53400, 822, 51300),//v2
+	new THREE.Vector3(52624, 822, 54874)//v3
+);
+
+curve5 = new THREE.CubicBezierCurve3(
+	new THREE.Vector3(-25312, -2770, 760),//v0
+	new THREE.Vector3(-26300, -2930, -8000),//v1
+	new THREE.Vector3(-30200, -3080, -10000),//v2
+	new THREE.Vector3(-38240, -3200, -9000)//v3
+);
+
+curve6 = new THREE.CubicBezierCurve3(
+	new THREE.Vector3(-38240, -3200, -9000),//v0
+	new THREE.Vector3(-43700, -3300, -9590),//v1
+	new THREE.Vector3(-47500, -3100, -15500),//v2
+	new THREE.Vector3(-42270, -2700, -23700)//v3
+);
+
+curve7 = new THREE.CubicBezierCurve3(
+	new THREE.Vector3(-42270, -2700, -23700),//v0
+	new THREE.Vector3(-38750, -2327, -26537),//v1
+	new THREE.Vector3(-33136, -1390, -21845),//v2
+	new THREE.Vector3(-27790, -1065, -25071)//v3
+);
+
 curve = curve1;
 curve_cont = 0;
 
@@ -473,13 +509,7 @@ op = 0;
 //Primeiro botão para interagir com a cena
 function opcao1() {
 	
-	if (curve == curve1) {
-		curve = curve2;
-		
-	}
-	else {
-		curve = curve1;
-	}
+
 
 	curve_cont = 0;
 	op++;
@@ -488,10 +518,23 @@ function opcao1() {
 //Segundo botão para ir para a próxima cena
 function opcao2() {
 	
-	curve_cont = 0;
+	//Primeira curva
+	if (curve == curve1) {
+		curve = curve2;
+	}
+	//Segunda curva
+	else if (curve == curve3 || curve == curve2) {
+		curve = curve4;
+	}
+	//Terceira curva
+	else {
+		curve = curve1;
+	}
 	
+	curve_cont = 0;
 	op++;
 }
+
 
 // Game logic
 var update = function () {
@@ -508,22 +551,39 @@ var render = function () {
 	//Altera a posição da camera do objeto
 	knuckles.lookAt(curve.getPointAt(curve.getUtoTmapping((curve_cont+0.01) / 100)));
 
-	
+	flag = 0;
 	//Contadores da curva de Bézier
 	if (curve_cont < 99.5) {
 		curve_cont += 0.5;
 	}
 	else {
+		flag = 1;
 		curve_cont = 99.5;
 	}
-
-
+	//Segunda lógica
+	if (curve == curve2 && curve_cont == 99.5 && flag == 1) {
+		curve = curve3;
+		curve_cont = 0;
+	}
+	else if (curve == curve4 && curve_cont == 99.5 && flag == 1) {
+		curve = curve5;
+		curve_cont = 0;
+	}
+	else if (curve == curve5 && curve_cont == 99.5 && flag == 1) {
+		curve = curve6;
+		curve_cont = 0;
+	}
+	else if (curve == curve6 && curve_cont == 99.5 && flag == 1) {
+		curve = curve7;
+		curve_cont = 0;
+	}
+	
 	
 	if (flagCamera == 0) {
 		camera.lookAt(curve.getPointAt(curve.getUtoTmapping((curve_cont+0.01) / 100)));
 		camera.position.x = knuckles.position.x;
-		camera.position.y = knuckles.position.y + 250;
-		camera.position.z = knuckles.position.z - 300;
+		camera.position.y = knuckles.position.y + 350;
+		camera.position.z = knuckles.position.z - 600;
 
 	}
 
