@@ -46,7 +46,7 @@ light.shadowCameraTop = d;
 light.shadowCameraBottom = -d;
 light.shadowCameraFar = 3500;
 light.shadowBias = -0.0001;
-light.shadowDarkness = 0.35;
+//light.shadowDarkness = 0.35;
 
 
 // SKYDOME
@@ -323,6 +323,27 @@ new THREE.OBJLoader().load(
 		scene.add(object);
 	}, onProgress, onError
 );
+
+//Load Peach
+mtlLoader = new THREE.MTLLoader();
+mtlLoader.setPath('obj/Peach/');
+mtlLoader.load("DolPeachR1.mtl", function(materials) {
+    materials.preload();
+    
+    //Carregamento do objeto para a cena
+    objLoader = new THREE.OBJLoader();
+    objLoader.setMaterials(materials);
+    objLoader.setPath('obj/Peach/');
+    objLoader.load("DolPeachR1.obj", function(object){
+	        //Configuração de posição, escala do objeto
+	        object.position.set(100, 200, 100);
+	        object.scale.set(20, 20, 20);
+	        peach = object;
+	        scene.add(object);
+    });
+}); 
+
+
 
 //Load Sun
 mtlLoader = new THREE.MTLLoader();
@@ -605,13 +626,13 @@ var render = function () {
         sky.material.uniforms.bottomColor.value.setRGB(1,1,1);
         var f = 1;
         light.intensity = f;
-        light.shadowDarkness = f*0.7;
+       // light.shadowDarkness = f*0.7;
     }
     else if (sun_position_y < 0.2 * orbitRadius && sun_position_y > 0.0 *orbitRadius )
     {
         var f = sun_position_y/(0.2 * orbitRadius);
         light.intensity = f;
-        light.shadowDarkness = f*0.7;
+       // light.shadowDarkness = f*0.7;
         sky.material.uniforms.topColor.value.setRGB(0.25*f,0.55*f,1*f);
         sky.material.uniforms.bottomColor.value.setRGB(1*f,   1*f,1*f);
     }
@@ -619,7 +640,7 @@ var render = function () {
     {
         var f = 0;
         light.intensity = f;
-        light.shadowDarkness = f*0.7;
+       // light.shadowDarkness = f*0.7;
         sky.material.uniforms.topColor.value.setRGB(0,0,0);
         sky.material.uniforms.bottomColor.value.setRGB(0,0,0);
     }
