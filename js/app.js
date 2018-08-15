@@ -164,6 +164,7 @@ var moon;
 var castle;
 var chef;
 var water;
+var fiona;
 
 
 // Load Peach Castle
@@ -242,6 +243,30 @@ objLoader.load(
 		object.scale.set(10.0, 10.0, 10.0);
 		object.position.set(0.5, 10.5, 0.5);
 		casa = object
+		scene.add(object);
+	}, onProgress, onError
+);
+
+// Load Fiona
+objLoader = new THREE.OBJLoader();
+objLoader.setPath('obj/Fiona/');
+var phongMaterialFiona = new THREE.MeshPhongMaterial({color: 0x004d00, specular: 0x333333, shininess: 40});
+objLoader.load(
+	// Resource URL
+	'fiona.obj',
+
+	// Called when resource is loaded
+	function (object) {
+		object.traverse(function (child) {
+			if (child instanceof THREE.Mesh) {
+				// Assigned a personal shader
+				child.material = phongMaterialFiona;
+			}
+		});
+		object.scale.set(10, 10, 10);
+		object.position.set(47546, 715, 49527);
+		object.rotation.y = Math.PI / 2;
+		fiona = object;
 		scene.add(object);
 	}, onProgress, onError
 );
@@ -341,8 +366,8 @@ mtlLoader.load("DolPeachR1.mtl", function(materials) {
     objLoader.setPath('obj/Peach/');
     objLoader.load("DolPeachR1.obj", function(object){
 	        //Configuração de posição, escala do objeto
-	        object.position.set(100, 200, 100);
-	        object.scale.set(20, 20, 20);
+	        object.position.set(-27990, -1070, -27195);
+	        object.scale.set(25, 25, 25);
 	        peach = object;
 	        scene.add(object);
     });
@@ -468,12 +493,12 @@ curve2 = new THREE.CubicBezierCurve3(
 curve3 = new THREE.CubicBezierCurve3(
 	new THREE.Vector3(45784, 822, 42473),//v0
 	new THREE.Vector3(52000, 822, 38000),//v1
-	new THREE.Vector3(58000, 822, 49000),//v2
-	new THREE.Vector3(48000, 822, 49613)//v3
+	new THREE.Vector3(58000, 715, 49000),//v2
+	new THREE.Vector3(48000, 715, 49613)//v3
 );
 
 curve4 = new THREE.CubicBezierCurve3(
-	new THREE.Vector3(48000, 822, 49613),//v0
+	new THREE.Vector3(48000, 715, 49613),//v0
 	new THREE.Vector3(52000, 822, 46000),//v1
 	new THREE.Vector3(53400, 822, 51300),//v2
 	new THREE.Vector3(52624, 822, 54874)//v3
@@ -498,6 +523,13 @@ curve7 = new THREE.CubicBezierCurve3(
 	new THREE.Vector3(-38750, -2327, -26537),//v1
 	new THREE.Vector3(-33136, -1390, -21845),//v2
 	new THREE.Vector3(-27790, -1065, -25071)//v3
+);
+
+curve8 = new THREE.CubicBezierCurve3(
+	new THREE.Vector3(-27790, -1065, -25071),//v0
+	new THREE.Vector3(-27806, -1065, -26292),//v1
+	new THREE.Vector3(-27690, -1065, -25566),//v2
+	new THREE.Vector3(-27949, -1065, -26595)//v3
 );
 
 curve = curve1;
@@ -604,13 +636,23 @@ var render = function () {
 		curve = curve7;
 		curve_cont = 0;
 	}
-	
+	else if (curve == curve7 && curve_cont == 99.5 && flag == 1) {
+		curve = curve8;
+		curve_cont = 0;
+	}	
 	
 	if (flagCamera == 0) {
 		camera.lookAt(curve.getPointAt(curve.getUtoTmapping((curve_cont+0.01) / 100)));
 		camera.position.x = knuckles.position.x;
 		camera.position.y = knuckles.position.y + 350;
-		camera.position.z = knuckles.position.z - 600;
+		camera.position.z = knuckles.position.z - 1200;
+
+//		if (curve == curve8) {
+//			camera.position.z += 1600;
+//			camera.rotation.y = -Math.PI;
+//		}
+		
+		camera.rotation.z = -Math.PI;
 
 	}
 
