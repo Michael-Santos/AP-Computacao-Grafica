@@ -5,6 +5,11 @@ var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 500000);
 
 
+/**************** Defining Listener ****************/
+var listener = new THREE.AudioListener();
+camera.add( listener );
+
+
 /**************** Defining Reder WebGL ****************/
 
 // Adding renderer WebGL
@@ -364,12 +369,13 @@ mtlLoader.load("sun.mtl", function(materials) {
     });
 }); 
 
-//Variaveis relacionada a movimentação do Sol e da Lua
+// Aux Variables to control sun and moon
 var orbitRadius = 250000;
 var date;
 
 
-
+/**************** Loading and setting audios ****************/
+var audioLoader = new THREE.AudioLoader();
 
 
 var star;
