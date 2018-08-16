@@ -371,7 +371,6 @@ mtlLoader.load("DolPeachR1.mtl", function(materials) {
 }); 
 
 
-
 //Load Sun
 mtlLoader = new THREE.MTLLoader();
 mtlLoader.setPath('obj/Sun/');
@@ -390,6 +389,10 @@ mtlLoader.load("sun.mtl", function(materials) {
 	        scene.add(object);
     });
 }); 
+
+// Aux Variables to control sun and moon
+var orbitRadius = 250000;
+var date;
 
 // Phong material
 var phongMaterial = new THREE.MeshPhongMaterial({color: 0x88aacc, specular: 0x333333});
@@ -412,10 +415,6 @@ new THREE.OBJLoader().load(
 		scene.add(object);
 	}, onProgress, onError
 );
-
-// Aux Variables to control sun and moon
-var orbitRadius = 250000;
-var date;
 
 var waterGeometry = new THREE.PlaneBufferGeometry( 500000, 500000 );
 	water = new THREE.Water(
@@ -459,10 +458,6 @@ mtlLoader.load("Knuckles.obj.mtl", function(materials) {
 	        scene.add(object);
     });
 });
-
-pivot = new THREE.Object3D();
-pivot.add( sunKnucles );
-scene.add( pivot );
 
 /**************** Loading and setting audios ****************/
 var audioLoader = new THREE.AudioLoader();
@@ -566,8 +561,8 @@ function opcao1() {
 	audioLoader.load( 'sound/dawe.mp3', function( buffer ) {
 		sound1.setBuffer( buffer );
 		sound1.setRefDistance( 500 );
-		sound1.play();
 	});
+	sound1.play();
 
 	knuckles.add(sound1);
 	curve_cont = 0;
@@ -598,8 +593,8 @@ function opcao2() {
 	audioLoader.load( 'sound/goaway.mp3', function( buffer ) {
 		sound2.setBuffer( buffer );
 		sound2.setRefDistance( 1000 );
-		sound2.play();
 	});
+	sound2.play();
 	knuckles.add(sound2);
 }
 
