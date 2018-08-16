@@ -87,11 +87,6 @@ window.addEventListener('resize', function () {
 
 // Add orbit controls (Cool)
 var controls = new THREE.OrbitControls(camera, renderer.domElement);
-//controls.maxPolarAngle = Math.PI * 0.495;
-//controls.target.set( 0, 10, 0 );
-//controls.minDistance = 40.0;
-//controls.maxDistance = 200.0;
-//camera.lookAt( controls.target );
 
 
 /*************** Trasformation Matrix **************/
@@ -164,7 +159,9 @@ var moon;
 var castle;
 var chef;
 var water;
+var star;
 var fiona;
+var sunKnucles;
 
 
 // Load Peach Castle
@@ -394,48 +391,33 @@ mtlLoader.load("sun.mtl", function(materials) {
     });
 }); 
 
+// Phong material
+var phongMaterial = new THREE.MeshPhongMaterial({color: 0x88aacc, specular: 0x333333});
+// Load tree.obj
+new THREE.OBJLoader().load(
+	// Resource URL
+	'obj/Rock1/Rock1.obj',
+
+	// Called when resource is loaded
+	function (object) {
+		object.traverse(function (child) {
+			if (child instanceof THREE.Mesh) {
+				// Assigned a personal shader
+				child.material = phongMaterial;
+			}
+		});
+		object.scale.set(10.0, 10.0, 10.0);
+		object.position.set(0, 50, 0);
+		star = object;
+		scene.add(object);
+	}, onProgress, onError
+);
+
 // Aux Variables to control sun and moon
 var orbitRadius = 250000;
 var date;
 
-
-/**************** Loading and setting audios ****************/
-var audioLoader = new THREE.AudioLoader();
-
-
-var star;
-
-function criarCeu () {
-	var startx = 0;
-	var starty = 0;
-	var startz = 0;
-	var distance = 10;
-
-	// Phong material
-	var phongMaterial = new THREE.MeshPhongMaterial({color: 0x88aacc, specular: 0x333333});
-	// Load tree.obj
-	new THREE.OBJLoader().load(
-		// Resource URL
-		'obj/Rock1/Rock1.obj',
-
-		// Called when resource is loaded
-		function (object) {
-			object.traverse(function (child) {
-				if (child instanceof THREE.Mesh) {
-					// Assigned a personal shader
-					child.material = phongMaterial;
-				}
-			});
-			object.scale.set(10.0, 10.0, 10.0);
-			object.position.set(0, 50, 0);
-			star = object;
-			scene.add(object);
-			criarEstrela(startx, startz, distance);
-		}, onProgress, onError
-	);
-
-
-	var waterGeometry = new THREE.PlaneBufferGeometry( 500000, 500000 );
+var waterGeometry = new THREE.PlaneBufferGeometry( 500000, 500000 );
 	water = new THREE.Water(
 		waterGeometry,
 		{
@@ -458,20 +440,32 @@ function criarCeu () {
 	water.position.y = -3400;
 	scene.add( water );
 
-}
 
-function criarEstrela (startx, startz, distance) {
-	for (i = startx; i < startx+distance*10; i = i+distance ){
-		for (z = startz; z < startz+distance*10; z = z+distance){
-			var newStar = star.clone();
-			newStar.position.x = x;
-			newStar.position.z = z;
-			scene.add(newStar);
-		}
-	}
-}
+/**************** Knucles planet ****************/
+mtlLoader = new THREE.MTLLoader();
+mtlLoader.setPath('obj/knuckles/');
+mtlLoader.load("Knuckles.obj.mtl", function(materials) {
+    materials.preload();
+    
+    //Carregamento do objeto para a cena
+    objLoader = new THREE.OBJLoader();
+    objLoader.setMaterials(materials);
+    objLoader.setPath('obj/knuckles/');
+    objLoader.load("Knuckles.obj", function(object){
+	        //Configuração de posição, escala e rotaçaõ do objeto
+	        object.position.set(0, 0, 0);
+	        object.scale.set(0.5, 0.5, 0.5);
+	        sunKnucles = object;
+	        scene.add(object);
+    });
+});
 
-criarCeu();
+pivot = new THREE.Object3D();
+pivot.add( sunKnucles );
+scene.add( pivot );
+
+/**************** Loading and setting audios ****************/
+var audioLoader = new THREE.AudioLoader();
 
 // Change the position of the camera
 camera.position.z = 1000;
@@ -535,6 +529,7 @@ curve8 = new THREE.CubicBezierCurve3(
 curve = curve1;
 curve_cont = 0;
 
+
 //Botão para mudar a camera
 flagCamera = 1;
 function changeCamera() {
@@ -567,9 +562,20 @@ function changeCamera() {
 op = 0;
 //Primeiro botão para interagir com a cena
 function opcao1() {
-	
+	var sound1 = new THREE.PositionalAudio( listener );
+	audioLoader.load( 'sound/dawe.mp3', function( buffer ) {
+		sound1.setBuffer( buffer );
+		sound1.setRefDistance( 500 );
+		sound1.play();
+	});
 
+	audioLoader.load( 'sound/dawe.mp3', function( buffer ) {
+		sound1.setBuffer( buffer );
+		sound1.setRefDistance( 500 );
+		sound1.play();
+	});
 
+	knuckles.add(sound1);
 	curve_cont = 0;
 	op++;
 }
@@ -592,13 +598,30 @@ function opcao2() {
 	
 	curve_cont = 0;
 	op++;
+
+	var sound2 = new THREE.PositionalAudio( listener );
+	audioLoader.load( 'sound/dawe.mp3', function( buffer ) {
+		sound1.setBuffer( buffer );
+		sound1.setRefDistance( 500 );
+		sound1.play();
+	});
+
+	audioLoader.load( 'sound/goaway.mp3', function( buffer ) {
+		sound2.setBuffer( buffer );
+		sound2.setRefDistance( 1000 );
+		sound2.play();
+	});
+	knuckles.add(sound2);
 }
 
+console.log(sunKnucles);
 
 // Game logic
 var update = function () {
-
-};
+	sunKnucles.rotation.x += 0.1;
+	sunKnucles.rotation.y += 0.2;
+	sunKnucles.rotation.z += 0.2;
+}
 
 // Draw Scene
 var render = function () {
@@ -691,7 +714,7 @@ var render = function () {
        // light.shadowDarkness = f*0.7;
         sky.material.uniforms.topColor.value.setRGB(0,0,0);
         sky.material.uniforms.bottomColor.value.setRGB(0,0,0);
-    }
+    }	
 
 	water.material.uniforms.sunDirection.value.copy( light.position ).normalize();
 	water.material.uniforms.time.value += 1.0 / 60.0;
