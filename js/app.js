@@ -163,6 +163,7 @@ var star;
 var fiona;
 var sunKnucles;
 var tailsPlanet;
+var amyPlanet;
 
 
 // Load Peach Castle
@@ -464,20 +465,38 @@ mtlLoader = new THREE.MTLLoader();
 mtlLoader.setPath('obj/Tails/');
 mtlLoader.load("MilesTailsPrower01.mtl", function(materials) {
     materials.preload();
-    //console.log("Meu pau na sua cara");
+
     //Carregamento do objeto para a cena
     objLoader = new THREE.OBJLoader();
     objLoader.setMaterials(materials);
     objLoader.setPath('obj/Tails/');
     objLoader.load("MilesTailsPrower01.obj", function(object){
 	        //Configuração de posição, escala e rotaçaõ do objeto
-	        //console.log("Meu pau na sua cara");
 	        object.position.set(10, 10, 10);
 	        object.scale.set(500.5, 500.5, 500.5);
-	        tails = object;
+	        tailsPlanet = object;
 	        scene.add(object);
     });
 });
+
+mtlLoader = new THREE.MTLLoader();
+mtlLoader.setPath('obj/AmyRose/');
+mtlLoader.load("AmyRose.mtl", function(materials) {
+    materials.preload();
+    
+    //Carregamento do objeto para a cena
+    objLoader = new THREE.OBJLoader();
+    objLoader.setMaterials(materials);
+    objLoader.setPath('obj/AmyRose/');
+    objLoader.load("AmyRose.obj", function(object){
+	        //Configuração de posição, escala e rotaçaõ do objeto
+	        object.position.set(10, 10, 10);
+	        object.scale.set(500.5, 500.5, 500.5);
+	        amyPlanet = object;
+	        scene.add(object);
+    });
+});
+
 
 
 /**************** Loading and setting audios ****************/
@@ -735,7 +754,8 @@ var render = function () {
     }	
 
     // Movimenta o sunKnucles
-    tails.position.set(Math.cos(date*10) * 7500 + sunKnucles.position.x, Math.sin(date*10) * 7500 + sunKnucles.position.y, Math.sin(date*10) * 7500 + sunKnucles.position.z);
+    tailsPlanet.position.set(Math.cos(date*10) * 7500 + sunKnucles.position.x, Math.sin(date*10) * 7500 + sunKnucles.position.y, Math.sin(date*10) * 7500 + sunKnucles.position.z);
+    amyPlanet.position.set(Math.cos(date*10) * 20000 + sunKnucles.position.x, Math.sin(date*10) * 20000 + sunKnucles.position.y, -Math.sin(date*10) * 20000 + sunKnucles.position.z);
 
 	water.material.uniforms.sunDirection.value.copy( light.position ).normalize();
 	water.material.uniforms.time.value += 1.0 / 60.0;
