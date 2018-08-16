@@ -162,6 +162,7 @@ var water;
 var star;
 var fiona;
 var sunKnucles;
+var tailsPlanet;
 
 
 // Load Peach Castle
@@ -440,7 +441,7 @@ var waterGeometry = new THREE.PlaneBufferGeometry( 500000, 500000 );
 	scene.add( water );
 
 
-/**************** Knucles planet ****************/
+/**************** Planetary ****************/
 mtlLoader = new THREE.MTLLoader();
 mtlLoader.setPath('obj/knuckles/');
 mtlLoader.load("Knuckles.obj.mtl", function(materials) {
@@ -452,12 +453,32 @@ mtlLoader.load("Knuckles.obj.mtl", function(materials) {
     objLoader.setPath('obj/knuckles/');
     objLoader.load("Knuckles.obj", function(object){
 	        //Configuração de posição, escala e rotaçaõ do objeto
-	        object.position.set(0, 0, 0);
-	        object.scale.set(0.5, 0.5, 0.5);
+	        object.position.set(55000, 50000, 0);
+	        object.scale.set(25.5, 25.5, 25.5);
 	        sunKnucles = object;
 	        scene.add(object);
     });
 });
+
+mtlLoader = new THREE.MTLLoader();
+mtlLoader.setPath('obj/Tails/');
+mtlLoader.load("MilesTailsPrower01.mtl", function(materials) {
+    materials.preload();
+    //console.log("Meu pau na sua cara");
+    //Carregamento do objeto para a cena
+    objLoader = new THREE.OBJLoader();
+    objLoader.setMaterials(materials);
+    objLoader.setPath('obj/Tails/');
+    objLoader.load("MilesTailsPrower01.obj", function(object){
+	        //Configuração de posição, escala e rotaçaõ do objeto
+	        //console.log("Meu pau na sua cara");
+	        object.position.set(10, 10, 10);
+	        object.scale.set(500.5, 500.5, 500.5);
+	        tails = object;
+	        scene.add(object);
+    });
+});
+
 
 /**************** Loading and setting audios ****************/
 var audioLoader = new THREE.AudioLoader();
@@ -556,7 +577,7 @@ function changeCamera() {
 var sound1 = new THREE.PositionalAudio( listener );
 audioLoader.load( 'sound/dawe.wav', function( buffer ) {
 	sound1.setBuffer( buffer );
-	sound1.setRefDistance( 500 );
+	sound1.setRefDistance( 1000 );
 });
 var sound2 = new THREE.PositionalAudio( listener );
 audioLoader.load( 'sound/goaway.wav', function( buffer ) {
@@ -649,40 +670,38 @@ var render = function () {
 		curve = curve8;
 		curve_cont = 0;
 	}	
-	//if (knuckles.position.x == 48051.43397276427 && knuckles.position.y == 715.0009476670774 && knuckles.position.z == 49609.74643704883) {
-	//	sound2.stop();
-	//}
-	//if (knuckles.position.x == -27948.07007695608 && knuckles.position.y == -1065 && knuckles.position.z == -26591.306581241133) {
-	//	sound2.stop();
-	//}
+
+
+	// Play and Stop music
 	if(curve_cont == 99.5 && curve == curve1){
-		sound2.stop();
+		if (sound2.isPlaying){
+			sound2.stop();
+		}
 	}
 	if(curve_cont == 99.5 && curve == curve3){
-		sound2.stop();
+		if (sound2.isPlaying){
+			sound2.stop();
+		}
 	}
 	if(curve_cont == 99.5 && curve == curve8){
-		sound2.stop();
+		if (sound2.isPlaying){
+			sound2.stop();
+		}
 	}
 
-	
+	// 
 	if (flagCamera == 0) {
 		camera.lookAt(curve.getPointAt(curve.getUtoTmapping((curve_cont+0.01) / 100)));
 		camera.position.x = knuckles.position.x;
 		camera.position.y = knuckles.position.y + 350;
 		camera.position.z = knuckles.position.z - 1200;
-
-//		if (curve == curve8) {
-//			camera.position.z += 1600;
-//			camera.rotation.y = -Math.PI;
-//		}
 		
 		camera.rotation.z = -Math.PI;
 
 	}
 
 	//Movimentação do Sol e da Lua
-	date = Date.now() * 0.0005;
+	date = Date.now() * 0.00005;
 	sun_position_x = -Math.cos(date) * orbitRadius;
 	sun_position_y = -Math.sin(date) * orbitRadius;
 	moon.position.set( 
@@ -699,13 +718,11 @@ var render = function () {
         sky.material.uniforms.bottomColor.value.setRGB(1,1,1);
         var f = 1;
         light.intensity = f;
-       // light.shadowDarkness = f*0.7;
     }
     else if (sun_position_y < 0.2 * orbitRadius && sun_position_y > 0.0 *orbitRadius )
     {
         var f = sun_position_y/(0.2 * orbitRadius);
         light.intensity = f;
-       // light.shadowDarkness = f*0.7;
         sky.material.uniforms.topColor.value.setRGB(0.25*f,0.55*f,1*f);
         sky.material.uniforms.bottomColor.value.setRGB(1*f,   1*f,1*f);
     }
@@ -713,10 +730,12 @@ var render = function () {
     {
         var f = 0;
         light.intensity = f;
-       // light.shadowDarkness = f*0.7;
         sky.material.uniforms.topColor.value.setRGB(0,0,0);
         sky.material.uniforms.bottomColor.value.setRGB(0,0,0);
     }	
+
+    // Movimenta o sunKnucles
+    tails.position.set(Math.cos(date*10) * 7500 + sunKnucles.position.x, Math.sin(date*10) * 7500 + sunKnucles.position.y, Math.sin(date*10) * 7500 + sunKnucles.position.z);
 
 	water.material.uniforms.sunDirection.value.copy( light.position ).normalize();
 	water.material.uniforms.time.value += 1.0 / 60.0;

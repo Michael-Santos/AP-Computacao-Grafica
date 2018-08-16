@@ -1,0 +1,572 @@
+# Wavefront MTL
+# Created by fragMOTION 1.3.2
+# http://www.fragmosoft.com
+
+newmtl material_0
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 0 0 0
+ke 0 0 0
+ns 40
+newmtl material_25104C
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka alltx_dwhite.png
+map_kd alltx_dwhite.png
+newmtl material_251060
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_white.png
+map_kd mtx_white.png
+newmtl material_251074
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_yellow0.png
+map_kd mtx_yellow0.png
+newmtl material_251088
+illum 2
+d 1
+ka 0 0 0
+kd 0 0 0
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka stx_hanasaki.png
+map_kd stx_hanasaki.png
+newmtl material_250ED0
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_eye3.png
+map_kd mtx_eye3.png
+newmtl material_250D54
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_eye3.png
+map_kd mtx_eye3.png
+newmtl material_2508CC
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_ring.png
+map_kd mtx_ring.png
+newmtl material_2508E0
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka s_anakage.png
+map_kd s_anakage.png
+newmtl material_2508F4
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_yellow0.png
+map_kd mtx_yellow0.png
+newmtl material_2506C0
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_white.png
+map_kd mtx_white.png
+newmtl material_2506D4
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka s_hando2.png
+map_kd s_hando2.png
+newmtl material_250360
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_white.png
+map_kd mtx_white.png
+newmtl material_250374
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka s_testhand.png
+map_kd s_testhand.png
+newmtl material_250388
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka alltx_dwhite.png
+map_kd alltx_dwhite.png
+newmtl material_2500F8
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_white.png
+map_kd mtx_white.png
+newmtl material_24FF70
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_yellow0.png
+map_kd mtx_yellow0.png
+newmtl material_24FDC0
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_yellow0.png
+map_kd mtx_yellow0.png
+newmtl material_24F938
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_ring.png
+map_kd mtx_ring.png
+newmtl material_24F94C
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka s_anakage.png
+map_kd s_anakage.png
+newmtl material_24F960
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_yellow0.png
+map_kd mtx_yellow0.png
+newmtl material_24F72C
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_white.png
+map_kd mtx_white.png
+newmtl material_24F740
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka s_hando2.png
+map_kd s_hando2.png
+newmtl material_24F3CC
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_white.png
+map_kd mtx_white.png
+newmtl material_24F3E0
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka s_testhand.png
+map_kd s_testhand.png
+newmtl material_24F3F4
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka alltx_dwhite.png
+map_kd alltx_dwhite.png
+newmtl material_24F164
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_white.png
+map_kd mtx_white.png
+newmtl material_24EFDC
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_yellow0.png
+map_kd mtx_yellow0.png
+newmtl material_24EE3C
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_yellow0.png
+map_kd mtx_yellow0.png
+newmtl material_24E91C
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_yellow0.png
+map_kd mtx_yellow0.png
+newmtl material_24E930
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_ring.png
+map_kd mtx_ring.png
+newmtl material_24E944
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka s_anakage.png
+map_kd s_anakage.png
+newmtl material_24E5AC
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_shoose0.png
+map_kd mtx_shoose0.png
+newmtl material_24E5C0
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_kutusoko0.png
+map_kd mtx_kutusoko0.png
+newmtl material_24E2DC
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_shoose1.png
+map_kd mtx_shoose1.png
+newmtl material_24E2F0
+illum 2
+d 1
+ka 0 0 0
+kd 0 0 0
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_kutusoko0.png
+map_kd mtx_kutusoko0.png
+newmtl material_24E154
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_yellow0.png
+map_kd mtx_yellow0.png
+newmtl material_24DFCC
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_yellow0.png
+map_kd mtx_yellow0.png
+newmtl material_24DAAC
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_yellow0.png
+map_kd mtx_yellow0.png
+newmtl material_24DAC0
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_ring.png
+map_kd mtx_ring.png
+newmtl material_24DAD4
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka s_anakage.png
+map_kd s_anakage.png
+newmtl material_24D74C
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_shoose0.png
+map_kd mtx_shoose0.png
+newmtl material_24D760
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_kutusoko0.png
+map_kd mtx_kutusoko0.png
+newmtl material_24D47C
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_shoose1.png
+map_kd mtx_shoose1.png
+newmtl material_24D490
+illum 2
+d 1
+ka 0 0 0
+kd 0 0 0
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_kutusoko0.png
+map_kd mtx_kutusoko0.png
+newmtl material_24D2F4
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_yellow0.png
+map_kd mtx_yellow0.png
+newmtl material_24D16C
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_yellow0.png
+map_kd mtx_yellow0.png
+newmtl material_24C6E0
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka alltx_dwhite.png
+map_kd alltx_dwhite.png
+newmtl material_24C6F4
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_yellow0.png
+map_kd mtx_yellow0.png
+newmtl material_24C708
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_shitahara.png
+map_kd mtx_shitahara.png
+newmtl material_24C71C
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_white.png
+map_kd mtx_white.png
+newmtl material_24C054
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_white.png
+map_kd mtx_white.png
+newmtl material_24C068
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_tail.png
+map_kd mtx_tail.png
+newmtl material_24C07C
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_yellow0.png
+map_kd mtx_yellow0.png
+newmtl material_24B9C8
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_white.png
+map_kd mtx_white.png
+newmtl material_24B9DC
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_tail.png
+map_kd mtx_tail.png
+newmtl material_24B9F0
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 1 1 1
+ke 0 0 0
+ns 40
+map_ka mtx_yellow0.png
+map_kd mtx_yellow0.png
