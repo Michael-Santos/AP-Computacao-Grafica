@@ -610,12 +610,16 @@ op = 0;
 //Primeiro botão para interagir com a cena
 function opcao1() {
 	sound1.play();
-	sound2.stop();
+	if (sound2.isPlaying) {
+		sound2.stop();
+	}
 	knuckles.add(sound1);
-	curve_cont = 99.5;
+//	curve_cont = 99.5;
 	op++;
 }
 
+//Verifica se passou da curve 1 alguma vez
+flag_camera = 0;
 //Segundo botão para ir para a próxima cena
 function opcao2() {
 	
@@ -716,7 +720,17 @@ var render = function () {
 		camera.position.z = knuckles.position.z - 1200;
 		
 		camera.rotation.z = -Math.PI;
-
+		if (curve == curve8) {
+			camera.position.z += 3000;
+//			camera.up.z = -1000;
+			camera.rotation.x = Math.PI;
+			camera.rotation.y = Math.PI;
+			flag_camera = 1;
+		}
+		else if (curve == curve1 && flag_camera == 1) {
+			camera.rotation.x = -Math.PI;
+//			camera.rotation.y = -Math.PI;
+		}
 	}
 
 	//Movimentação do Sol e da Lua
