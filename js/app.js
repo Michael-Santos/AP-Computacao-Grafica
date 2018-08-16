@@ -436,7 +436,7 @@ var waterGeometry = new THREE.PlaneBufferGeometry( 500000, 500000 );
 
 	water.rotation.x = - Math.PI / 2;
 	//water.scale.set(100, 100, 1);
-	water.position.y = -3400;
+	water.position.y = -3550;
 	scene.add( water );
 
 
@@ -553,19 +553,26 @@ function changeCamera() {
 	}
 	controls.update();
 }
+var sound1 = new THREE.PositionalAudio( listener );
+audioLoader.load( 'sound/dawe.wav', function( buffer ) {
+	sound1.setBuffer( buffer );
+	sound1.setRefDistance( 500 );
+});
+var sound2 = new THREE.PositionalAudio( listener );
+audioLoader.load( 'sound/goaway.wav', function( buffer ) {
+	sound2.setBuffer( buffer );
+	sound2.setLoop(true);
+	sound2.setRefDistance( 1000 );
+});
+
 
 op = 0;
 //Primeiro botão para interagir com a cena
 function opcao1() {
-	var sound1 = new THREE.PositionalAudio( listener );
-	audioLoader.load( 'sound/dawe.mp3', function( buffer ) {
-		sound1.setBuffer( buffer );
-		sound1.setRefDistance( 500 );
-	});
 	sound1.play();
-
+	sound2.stop();
 	knuckles.add(sound1);
-	curve_cont = 0;
+	curve_cont = 99.5;
 	op++;
 }
 
@@ -579,6 +586,7 @@ function opcao2() {
 	//Segunda curva
 	else if (curve == curve3 || curve == curve2) {
 		curve = curve4;
+
 	}
 	//Terceira curva
 	else {
@@ -588,17 +596,11 @@ function opcao2() {
 	curve_cont = 0;
 	op++;
 
-	var sound2 = new THREE.PositionalAudio( listener );
+	sound2.play()
+	sound1.stop()
 
-	audioLoader.load( 'sound/goaway.mp3', function( buffer ) {
-		sound2.setBuffer( buffer );
-		sound2.setRefDistance( 1000 );
-	});
-	sound2.play();
 	knuckles.add(sound2);
 }
-
-console.log(sunKnucles);
 
 // Game logic
 var update = function () {
@@ -647,6 +649,22 @@ var render = function () {
 		curve = curve8;
 		curve_cont = 0;
 	}	
+	//if (knuckles.position.x == 48051.43397276427 && knuckles.position.y == 715.0009476670774 && knuckles.position.z == 49609.74643704883) {
+	//	sound2.stop();
+	//}
+	//if (knuckles.position.x == -27948.07007695608 && knuckles.position.y == -1065 && knuckles.position.z == -26591.306581241133) {
+	//	sound2.stop();
+	//}
+	if(curve_cont == 99.5 && curve == curve1){
+		sound2.stop();
+	}
+	if(curve_cont == 99.5 && curve == curve3){
+		sound2.stop();
+	}
+	if(curve_cont == 99.5 && curve == curve8){
+		sound2.stop();
+	}
+
 	
 	if (flagCamera == 0) {
 		camera.lookAt(curve.getPointAt(curve.getUtoTmapping((curve_cont+0.01) / 100)));
