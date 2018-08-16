@@ -562,7 +562,7 @@ function changeCamera() {
 op = 0;
 //Primeiro botão para interagir com a cena
 function opcao1() {
-	var sound1 = new THREE.PositionalAudio( listener );
+	var sound2 = new THREE.PositionalAudio( listener );
 	audioLoader.load( 'sound/dawe.mp3', function( buffer ) {
 		sound1.setBuffer( buffer );
 		sound1.setRefDistance( 500 );
@@ -570,9 +570,9 @@ function opcao1() {
 	});
 
 	audioLoader.load( 'sound/dawe.mp3', function( buffer ) {
-		sound1.setBuffer( buffer );
-		sound1.setRefDistance( 500 );
-		sound1.play();
+		sound2.setBuffer( buffer );
+		sound2.setRefDistance( 500 );
+		sound2.play();
 	});
 
 	knuckles.add(sound1);
