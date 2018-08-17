@@ -761,7 +761,7 @@ var render = function () {
     }	
 
     // Moving sunKnucles
-
+    sunKnucles.position.set(Math.cos(date*10) * 100000 + 0, Math.sin(date*10) * 50000 + 90000, Math.sin(date*10) * 100000 + 0)
 
     // Moving TailslPlanet and AmyPLanet
     tailsPlanet.position.set(Math.cos(date*50) * 7500 + sunKnucles.position.x, Math.sin(date*50) * 7500 + sunKnucles.position.y, Math.sin(date*50) * 7500 + sunKnucles.position.z);
