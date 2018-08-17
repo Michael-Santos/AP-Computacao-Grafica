@@ -163,6 +163,7 @@ var fiona;
 var sunKnucles;
 var tailsPlanet;
 var amyPlanet;
+var sonicPlanet;
 
 
 // Load Peach Castle
@@ -305,27 +306,6 @@ mtlLoader.load("battery.mtl", function(materials) {
     });
 }); 
 
-mtlLoader = new THREE.MTLLoader();
-mtlLoader.setPath('obj/tree/');
-mtlLoader.load("tree.mtl", function(materials) {
-    materials.preload();
-    
-    // Load  object to the scene
-    objLoader = new THREE.OBJLoader();
-    objLoader.setMaterials(materials);
-    objLoader.setPath('obj/tree/');
-    objLoader.load("tree.obj", function(object){
-       	object.position.x = 100;
-		object.position.y = 0;
-		object.position.z = -400;
-		object.scale.set(4, 4, 4);
-        
-        tree = object;
-
-        scene.add(object);
-    });
-}); 
-
 // Load tree.obj
 new THREE.OBJLoader().load(
 	// Resource URL
@@ -340,8 +320,8 @@ new THREE.OBJLoader().load(
 			}
 		});
 		object.scale.set(1.0, 1.0, 1.0);
-		object.position.set(0.5, 10.5, 0.5);
-		casa = object;
+		object.position.set(0, 0, 0);
+		// = object;
 		scene.add(object);
 	}, onProgress, onError
 );
@@ -436,6 +416,7 @@ var waterGeometry = new THREE.PlaneBufferGeometry( 500000, 500000 );
 
 
 /**************** Planetary ****************/
+// Sun Knucles
 mtlLoader = new THREE.MTLLoader();
 mtlLoader.setPath('obj/knuckles/');
 mtlLoader.load("Knuckles.obj.mtl", function(materials) {
@@ -454,6 +435,8 @@ mtlLoader.load("Knuckles.obj.mtl", function(materials) {
     });
 });
 
+
+// Tails PLanet
 mtlLoader = new THREE.MTLLoader();
 mtlLoader.setPath('obj/Tails/');
 mtlLoader.load("MilesTailsPrower01.mtl", function(materials) {
@@ -472,6 +455,8 @@ mtlLoader.load("MilesTailsPrower01.mtl", function(materials) {
     });
 });
 
+
+// Rose Planet
 mtlLoader = new THREE.MTLLoader();
 mtlLoader.setPath('obj/AmyRose/');
 mtlLoader.load("AmyRose.mtl", function(materials) {
@@ -490,6 +475,24 @@ mtlLoader.load("AmyRose.mtl", function(materials) {
     });
 });
 
+// Sonic Planet
+mtlLoader = new THREE.MTLLoader();
+mtlLoader.setPath('obj/Sonic/');
+mtlLoader.load("Sonic.mtl", function(materials) {
+    materials.preload();
+    
+    //Carregamento do objeto para a cena
+    objLoader = new THREE.OBJLoader();
+    objLoader.setMaterials(materials);
+    objLoader.setPath('obj/Sonic/');
+    objLoader.load("Sonic.obj", function(object){
+	        //Configuração de posição, escala e rotaçaõ do objeto
+	        object.position.set(10, 10, 10);
+	        object.scale.set(1000.5, 1000.5, 1000.5);
+	        sonicPlanet = object;
+	        scene.add(object);
+    });
+});
 
 
 /**************** Loading and setting audios ****************/
@@ -652,6 +655,10 @@ var update = function () {
 	amyPlanet.rotation.x += 0.1;
 	amyPlanet.rotation.y += 0.3;
 	amyPlanet.rotation.z += 0.1;
+
+	sonicPlanet.rotation.x += 0.1;
+	sonicPlanet.rotation.y += 0.3;
+	sonicPlanet.rotation.z += 0.1;
 }
 
 // Draw Scene
@@ -771,9 +778,10 @@ var render = function () {
     // Moving sunKnucles
     sunKnucles.position.set(Math.cos(date*10) * 100000 + 0, Math.sin(date*10) * 50000 + 100000, Math.sin(date*10) * 100000 + 0)
 
-    // Moving TailslPlanet and AmyPLanet
-    tailsPlanet.position.set(Math.cos(date*50) * 7500 + sunKnucles.position.x, Math.sin(date*50) * 7500 + sunKnucles.position.y, Math.sin(date*50) * 7500 + sunKnucles.position.z);
+    // Moving TailslPlanet, AmyPLanet and SonicPlanet
+    tailsPlanet.position.set(Math.cos(date*50) * 20000 + sunKnucles.position.x, Math.sin(date*50) *20000 + sunKnucles.position.y, Math.sin(date*50) * 20000 + sunKnucles.position.z);
     amyPlanet.position.set(Math.cos(date*50) * 20000 + sunKnucles.position.x, Math.sin(date*50) * 20000 + sunKnucles.position.y, -Math.sin(date*50) * 20000 + sunKnucles.position.z);
+    sonicPlanet.position.set(Math.cos(date*50) * 20000 + sunKnucles.position.x, sunKnucles.position.y, -Math.sin(date*50) * 20000 + sunKnucles.position.z);
 
 	water.material.uniforms.sunDirection.value.copy( light.position ).normalize();
 	water.material.uniforms.time.value += 1.0 / 60.0;
