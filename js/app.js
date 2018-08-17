@@ -641,9 +641,17 @@ function opcao2() {
 
 // Game logic
 var update = function () {
-	sunKnucles.rotation.x += 0.1;
-	sunKnucles.rotation.y += 0.2;
-	sunKnucles.rotation.z += 0.2;
+	sunKnucles.rotation.x += 0.01;
+	sunKnucles.rotation.y += 0.03;
+	sunKnucles.rotation.z += 0.01;
+
+	tailsPlanet.rotation.x += 0.1;
+	tailsPlanet.rotation.y += 0.3;
+	tailsPlanet.rotation.z += 0.1;
+
+	amyPlanet.rotation.x += 0.1;
+	amyPlanet.rotation.y += 0.3;
+	amyPlanet.rotation.z += 0.1;
 }
 
 // Draw Scene
@@ -761,7 +769,7 @@ var render = function () {
     }	
 
     // Moving sunKnucles
-    sunKnucles.position.set(Math.cos(date*10) * 100000 + 0, Math.sin(date*10) * 50000 + 90000, Math.sin(date*10) * 100000 + 0)
+    sunKnucles.position.set(Math.cos(date*10) * 100000 + 0, Math.sin(date*10) * 50000 + 100000, Math.sin(date*10) * 100000 + 0)
 
     // Moving TailslPlanet and AmyPLanet
     tailsPlanet.position.set(Math.cos(date*50) * 7500 + sunKnucles.position.x, Math.sin(date*50) * 7500 + sunKnucles.position.y, Math.sin(date*50) * 7500 + sunKnucles.position.z);
