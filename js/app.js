@@ -109,7 +109,6 @@ var material1 = new THREE.ShaderMaterial({
 	fragmentShader: document.getElementById("fragmentShaders").textContent
 });
 
-//var material = new THREE.MeshBasicMaterial( {color: 0xffff00, wireframe:false} );
 var material2 = new THREE.ShaderMaterial({
 	uniforms: {
 		trans: {
@@ -172,12 +171,11 @@ mtlLoader.setPath('obj/PeachsCastle/');
 mtlLoader.load("Castle.mtl", function(materials) {
     materials.preload();
     
-    //Carregamento do objeto para a cena
+    // Load  object to the scene
     objLoader = new THREE.OBJLoader();
     objLoader.setMaterials(materials);
     objLoader.setPath('obj/PeachsCastle/');
     objLoader.load("Castle.obj", function(object){
-	        //Configuração de posição, escala e rotação do objeto
 	        object.position.set(0, -4500, 0);
 	        object.scale.set(10000, 10000, 10000);
 	        castle = object;
@@ -191,12 +189,11 @@ mtlLoader.setPath('obj/Moon/');
 mtlLoader.load("moon.mtl", function(materials) {
     materials.preload();
     
-    //Carregamento do objeto para a cena
+    // Load  object to the scene
     objLoader = new THREE.OBJLoader();
     objLoader.setMaterials(materials);
     objLoader.setPath('obj/Moon/');
     objLoader.load("moon.obj", function(object){
-	        //Configuração de posição, escala e rotação do objeto
 	        object.position.set(0, 40000, -70000);
 	        object.scale.set(1, 1, 1);
 	        moon = object;
@@ -210,12 +207,11 @@ mtlLoader.setPath('obj/Chef/');
 mtlLoader.load("Chef.mtl", function(materials) {
     materials.preload();
     
-    //Carregamento do objeto para a cena
+    // Load  object to the scene
     objLoader = new THREE.OBJLoader();
     objLoader.setMaterials(materials);
     objLoader.setPath('obj/Chef/');
     objLoader.load("Chef.obj", function(object){
-	        //Configuração de posição, escala e rotaçaõ do objeto
 	        object.position.set(-12200, -3500, 20500);
 	        object.scale.set(1000, 1000, 1000);
 	        object.rotation.set(0, 0.7, 0); 
@@ -294,13 +290,11 @@ mtlLoader.setPath('obj/Battery/');
 mtlLoader.load("battery.mtl", function(materials) {
     materials.preload();
     
-    //Carregamento do objeto para a cena
+    // Load  object to the scene
     objLoader = new THREE.OBJLoader();
     objLoader.setMaterials(materials);
     objLoader.setPath('obj/Battery/');
     objLoader.load("battery.obj", function(object){
-
-        //Configuração de posição, escala e rotaçaõ do objeto
         object.position.set(170, 130, -300);
         object.scale.set(100.01, 100.01, 100.01);
         object.rotation.set(0, 0.7, 2);
@@ -316,12 +310,11 @@ mtlLoader.setPath('obj/tree/');
 mtlLoader.load("tree.mtl", function(materials) {
     materials.preload();
     
-    //Carregamento do objeto para a cena
+    // Load  object to the scene
     objLoader = new THREE.OBJLoader();
     objLoader.setMaterials(materials);
     objLoader.setPath('obj/tree/');
     objLoader.load("tree.obj", function(object){
-        //Configuração de posição, escala e rotaçaõ do objeto
        	object.position.x = 100;
 		object.position.y = 0;
 		object.position.z = -400;
@@ -656,11 +649,11 @@ var update = function () {
 // Draw Scene
 var render = function () {
 
-	//Calcula o ponto
+	// Calculate the current point
 	var point = curve.getUtoTmapping(curve_cont / 100);
-	//Posiciona o objeto no ponto
+	// Knucles walk on bezier curve
 	knuckles.position.set(curve.getPointAt(point).x, curve.getPointAt(point).y, curve.getPointAt(point).z);
-	//Altera a posição da camera do objeto
+	// Keep Knuckles looking ahead 
 	knuckles.lookAt(curve.getPointAt(curve.getUtoTmapping((curve_cont+0.01) / 100)));
 
 	flag = 0;
@@ -767,9 +760,12 @@ var render = function () {
         sky.material.uniforms.bottomColor.value.setRGB(0,0,0);
     }	
 
-    // Movimenta o sunKnucles
-    tailsPlanet.position.set(Math.cos(date*10) * 7500 + sunKnucles.position.x, Math.sin(date*10) * 7500 + sunKnucles.position.y, Math.sin(date*10) * 7500 + sunKnucles.position.z);
-    amyPlanet.position.set(Math.cos(date*10) * 20000 + sunKnucles.position.x, Math.sin(date*10) * 20000 + sunKnucles.position.y, -Math.sin(date*10) * 20000 + sunKnucles.position.z);
+    // Moving sunKnucles
+
+
+    // Moving TailslPlanet and AmyPLanet
+    tailsPlanet.position.set(Math.cos(date*50) * 7500 + sunKnucles.position.x, Math.sin(date*50) * 7500 + sunKnucles.position.y, Math.sin(date*50) * 7500 + sunKnucles.position.z);
+    amyPlanet.position.set(Math.cos(date*50) * 20000 + sunKnucles.position.x, Math.sin(date*50) * 20000 + sunKnucles.position.y, -Math.sin(date*50) * 20000 + sunKnucles.position.z);
 
 	water.material.uniforms.sunDirection.value.copy( light.position ).normalize();
 	water.material.uniforms.time.value += 1.0 / 60.0;
