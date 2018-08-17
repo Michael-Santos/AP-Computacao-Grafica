@@ -414,6 +414,13 @@ var waterGeometry = new THREE.PlaneBufferGeometry( 500000, 500000 );
 	water.position.y = -3550;
 	scene.add( water );
 
+//Objeto simples com textura
+//Textura com phong
+texture = new THREE.MeshPhongMaterial({ map: THREE.ImageUtils.loadTexture("obj/sphere/knuckles.png") });
+//Criando a esfera
+var sphere = new THREE.Mesh( new THREE.SphereGeometry(50, 320,320), texture);
+sphere.position.set(-12000, -3400, 19000);
+scene.add(sphere);
 
 /**************** Planetary ****************/
 // Sun Knucles
@@ -659,6 +666,8 @@ var update = function () {
 	sonicPlanet.rotation.x += 0.1;
 	sonicPlanet.rotation.y += 0.3;
 	sonicPlanet.rotation.z += 0.1;
+	
+	sphere.rotation.y += 0.05;
 }
 
 // Draw Scene
